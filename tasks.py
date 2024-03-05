@@ -1,3 +1,5 @@
+import random
+
 class TreeNode:
     def __init__(self, value):
         self.value = value
@@ -29,13 +31,32 @@ def build_tree():
     root.right.right = TreeNode(10)
     root.left.left.left = TreeNode(1)
     root.right.right.right = TreeNode(12)
+
+    # Додавання випадкових вузлів left та right
+    max_iterations = 20
+    for _ in range(max_iterations):
+        current = root
+        while True:
+            direction = random.choice(["left", "right"])
+            if direction == "left":
+                if current.left is None:
+                    current.left = TreeNode(random.randint(1, 100))
+                    break
+                else:
+                    current = current.left
+            else:
+                if current.right is None:
+                    current.right = TreeNode(random.randint(1, 100))
+                    break
+                else:
+                    current = current.right
+
     return root
 
 def tree_sum(root):
     if not root:
         return 0
     return root.value + tree_sum(root.left) + tree_sum(root.right)
-
 
 def find_min_value(root):
     if not root:
